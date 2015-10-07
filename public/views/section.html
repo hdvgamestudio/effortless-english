@@ -52,18 +52,24 @@
     </div>
   </div>
   <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10" ng-if="isCreating">
-        <button type="submit" class="btn btn-primary" ng-click="createSections()">Create Lession</button>
+    <label class="control-label col-sm-2">Content: </label>
+<div class="row screen-split" style="clear: both;" ng-controller="markdownController as marked">
+    <div class="col-sm-6 col-md-6">
+      <h5>Markdown</h5>
+      <div>
+        <textarea id="inputText" ng-model="marked.inputText"></textarea>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-6">
+      <h5>Preview</h5>
+      <div id="outputText" ng-bind-html="marked.outputText"></div>
     </div>
   </div>
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-10" ng-if="isCreating">
+        <button type="submit" class="btn btn-primary" ng-click="createSections()">Create Lession</button>
+    </div>
+  </div>  </div>
+  
 </form>
-<form>
-    <input name="title" type="text" placeholder="Title?" />
-    <textarea name="content" data-provide="markdown" rows="10"></textarea>
-    <label class="checkbox">
-      <input name="publish" type="checkbox"> Publish
-    </label>
-    <hr/>
-    <button type="submit" class="btn">Submit</button>
-  </form> 
 

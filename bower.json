@@ -10,6 +10,10 @@
     "angular-bootstrap": "~0.13.4",
     "bootstrap-markdown": "latest",
     "markdown": "latest",
-    "to-markdown": "latest"
+    "to-markdown": "latest",
+    "jquery.hotkeys": "latest",
+    "marked": "latest",
+    "angular-sanitize": "latest",
+    "highlightjs": "latest"
   }
 }
