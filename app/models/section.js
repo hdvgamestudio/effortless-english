@@ -13,6 +13,9 @@ var SectionSchema = new Schema({
     type: String,
     enum: ['main', 'ministory', 'vocabulary']
   },
+  content: {
+    type: String
+  },
   url: {
     type: String
   }

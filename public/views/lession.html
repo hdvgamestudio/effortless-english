@@ -1,0 +1,43 @@
+<!-- LESSION VIEW -->
+<h4><strong>Lession List (CD: {{cd.title}})</strong></h4>
+<table class="table table-hover">
+  <tr>
+    <th><span>Title</span></th>
+    <th><span>Created Date</span></th>
+    <th><span>No.Sections</span></th>
+    <th><span></span></th>
+  </tr>
+  <tr ng-repeat="lession in lessions.lessions">
+    <td><span>{{lession.title}}</span></td>
+    <td><span>{{lession.created_at}}</span></td>
+    <td><span>{{lession.no_sections}}</span></td>
+    <td>
+      <a href="cds/{{cd._id}}/lessions/{{lession._id}}/sections"><span class="glyphicon glyphicon-list-alt"></span></a>
+      <a href="#" ng-click="switchToUpdate(lession)"><span class="glyphicon glyphicon-edit"></span></a>
+      <a href="#" confirmed-click="deleteLessions(lession._id)" ng-confirm-click="Do you really want to delete the lession?"><span class="glyphicon glyphicon-trash"></span></a>
+    </td>
+  </tr>
+</table>
+<div class="alert alert-success" ng-show="isCreatedSuccess">
+    <strong>Success!</strong> The new lession have been created successfully.
+</div>
+<div class="alert alert-success" ng-show="isEditedSuccess">
+    <strong>Success!</strong> The new lession have been modified successfully.
+</div>
+<h4><strong>{{isCreating ? 'Create Lession' : 'Update Lession'}}</strong></h4>
+<form class="form-horizontal" role="form">
+  <div class="form-group">
+    <label class="control-label col-sm-1">Title: </label>
+    <div class="col-sm-3">
+      <input class="form-control" ng-model="lession.title" placeholder="Enter Title">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-10" ng-if="isCreating">
+        <button type="submit" class="btn btn-primary" ng-click="createLessions()">Create Lession</button>
+    </div>
+    <div class="col-sm-offset-1 col-sm-10" ng-if="!isCreating">
+        <button type="submit" class="btn btn-primary" ng-click="editLessions()">Update Lession</button>
+    </div>
+  </div>
+</form>

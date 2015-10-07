@@ -4,7 +4,6 @@ var _ = require('underscore');
 
 exports.postLessions = function(req, res, next) {
   var newLession = req.body.lession;
-  console.log(JSON.stringify(newLession));
   var lession = new Lession(newLession);
   lession.save(function(err, lession) {
     if (err) return next(err);

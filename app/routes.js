@@ -7,9 +7,9 @@ var sectionController = require('./controllers/section');
 module.exports = function(app) {
   var router = express.Router();
 
-  router.route('/')
+  router.route('/test')
     .get(function(req, res, next) {
-      res.send('Hello! The effortless English');
+      res.sendFile('../public/views/home.html');
   });
   /*-- CD --*/
   router.route('/cds')

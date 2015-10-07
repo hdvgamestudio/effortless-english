@@ -19,5 +19,7 @@ node_modules
 *.log
 *.gz
 
+# bower
+public/libs
 # logs
 logs

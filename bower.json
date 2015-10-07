@@ -1,0 +1,15 @@
+{
+  "name": "effortless-english",
+  "version": "1.0.0",
+  "dependencies": {
+    "bootstrap": "latest",
+    "animate.css": "latest",
+    "angular": "latest",
+    "angular-ui": "latest",
+    "angular-route": "latest",
+    "angular-bootstrap": "~0.13.4",
+    "bootstrap-markdown": "latest",
+    "markdown": "latest",
+    "to-markdown": "latest"
+  }
+}

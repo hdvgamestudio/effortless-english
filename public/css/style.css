@@ -1,0 +1,27 @@
+header {
+  position: relative;
+  z-index: 100;
+}
+
+header div {
+  position: fixed;
+  width: 100%;
+  background-color: black;
+  color: white;
+  height: 80px;
+}
+
+header h2 {
+  margin: 0px;
+  line-height: 80px;
+  font-weight: 700;
+}
+
+section {
+  position: relative;
+  top: 80px;
+}
+
+table tr td a {
+  margin-left: 15px;
+}
