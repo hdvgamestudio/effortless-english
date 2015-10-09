@@ -1,11 +1,33 @@
-angular.module('SectionCtrl', []).controller('SectionController', function($scope, $http, $routeParams){
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: false, // if false -> allow plain old HTML ;)
+  smartLists: true,
+  smartypants: false,
+  highlight: function (code, lang) {
+    if (lang) {
+      return hljs.highlight(lang, code).value;
+    } else {
+      return hljs.highlightAuto(code).value;
+    }
+  }
+});
+
+angular.module('SectionCtrl', ['ngSanitize']).controller('SectionController', function($scope, $http, $routeParams){
   var apiUrl = 'http://localhost:3000/api/v1/cds/' + $routeParams.cd_id;
   var GET_URL = CREATE_URL = apiUrl + '/lessions/' + $routeParams.lession_id + '/sections';
   // Get the cd and lession of the section
   getCD();
   getLession();
-  $scope.section = {};
+  $scope.section = {content: ''};
   $scope.isCreating = true;
+  // Markdown
+  $scope.$watch('section.content', function(current, original) {
+    $scope.outputText = marked(current);
+  });
   // Get Section List
   $scope.getSections = function() {
     $http.get(GET_URL)
@@ -17,7 +39,7 @@ angular.module('SectionCtrl', []).controller('SectionController', function($scop
     })
   }
   $scope.getSections();
-  // Create a new Lession
+  // Create a new section
   $scope.createSections = function() {
     $http({
       url: CREATE_URL,
@@ -36,46 +58,47 @@ angular.module('SectionCtrl', []).controller('SectionController', function($scop
       $scope.isEditedSuccess = false;
       $scope.getSections();
     }).error(function() {
-        console.log('error create a lession');
+        console.log('error create a section');
     });
   };
-  // Edit a Lession
-  $scope.editLessions = function() {
+  // Edit a Section
+  $scope.editSections = function() {
     $http({
-      url: apiUrl + '/lessions/' + $scope.lession.id,
+      url: GET_URL + '/' + $scope.section._id,
       method: "PUT",
       data: JSON.stringify({
-        lession: {
-          cd_id: $routeParams.cd_id,
-          title: $scope.lession.title
+        section: {
+          lession_id: $routeParams.lession_id,
+          title: $scope.section.title,
+          section_type: $scope.section.section_type,
+          url: $scope.section.url,
+          content: $scope.section.content
         }
       })
     }).success(function(data, status) {
-      $scope.lession.title = '';
       $scope.isEditedSuccess = true;
       $scope.isCreating = true;
       $scope.isCreatedSuccess = false;
-      $scope.getLessions();
+      $scope.getSections();
     }).error(function() {
-        console.log('error update a cd');
+        console.log('error update a section');
     })
   }
 
-  $scope.switchToUpdate = function(lession) {
+  $scope.switchToUpdate = function(section) {
     $scope.isCreating = false;
-    $scope.lession.id = lession._id;
-    $scope.lession.title = lession.title;
+    $scope.section = section;
   }
-  // Delete a Lession
-  $scope.deleteLessions = function(id) {
+  // Delete a Section
+  $scope.deleteSections = function(id) {
     $http({
-      url: apiUrl + '/lessions/'+ id,
+      url: GET_URL + '/'+ id,
       method: "DELETE",
     }).success(function(data, status) {
       $scope.isEditedSuccess = false;
       $scope.isCreatedSuccess = false;
       $scope.isCreating = true;
-      $scope.getLessions();
+      $scope.getSections();
     }).error(function() {
     });
   }

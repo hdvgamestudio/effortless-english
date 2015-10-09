@@ -11,7 +11,8 @@ var test = require('./env/test');
 var production = require('./env/production');
 
 var defaults = {
-  root: path.normalize(__dirname + '/..')
+  root: path.normalize(__dirname + '/..'),
+  secretKey: 'cs52'
 }
 
 /**

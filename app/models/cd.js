@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var utils = require('../../lib/utils')
 var Schema = mongoose.Schema;
 
 var CDSchema = new Schema({
@@ -9,7 +10,11 @@ var CDSchema = new Schema({
   lessions: [{
     type: Schema.ObjectId,
     ref: 'Lession'
-  }]
+  }],
+  created_at: {
+    type: String,
+    "default": new Date().ddmmyyyyWithScore()
+  }
 });
 
 module.exports = mongoose.model('CD', CDSchema);

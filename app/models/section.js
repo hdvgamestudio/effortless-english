@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var utils = require('../../lib/utils')
 var Schema = mongoose.Schema;
 
 var SectionSchema = new Schema({
@@ -18,6 +19,10 @@ var SectionSchema = new Schema({
   },
   url: {
     type: String
+  },
+  created_at: {
+    type: String,
+    "default": new Date().ddmmyyyyWithScore()
   }
 });
 

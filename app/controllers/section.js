@@ -1,4 +1,5 @@
 var Section = require('../models/section');
+var Lession = require('../models/lession');
 var _ = require('underscore');
 
 exports.postSections = function(req, res, next) {
@@ -6,7 +7,13 @@ exports.postSections = function(req, res, next) {
   var section = new Section(newSection);
   section.save(function(err, section) {
     if (err) return next(err);
-    res.json(section);
+    Lession.update({ _id: section.lession_id},
+    {
+      $push: {"sections": section._id}
+    }).exec(function(err, result) {
+      if (err) return next(err);
+      res.json(section);
+    })
   });
 }
 
@@ -58,6 +65,12 @@ exports.deleteSections = function(req, res, next) {
   Section.remove({_id: id})
     .exec(function(err, result){
     if (err) return next(err);
-    res.json(result);
+    Lession.update({ _id: req.params.lession_id},
+    {
+      $push: {"sections": id}
+    }).exec(function(err, lession) {
+      if (err) return next(err);
+      res.json(result);
+    })
   });
 }

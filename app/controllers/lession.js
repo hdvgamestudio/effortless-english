@@ -1,5 +1,6 @@
 var Section = require('../models/section');
 var Lession = require('../models/lession');
+var CD      = require('../models/cd');
 var _ = require('underscore');
 
 exports.postLessions = function(req, res, next) {
@@ -7,8 +8,15 @@ exports.postLessions = function(req, res, next) {
   var lession = new Lession(newLession);
   lession.save(function(err, lession) {
     if (err) return next(err);
-    res.json(lession);
+    CD.update({ _id: lession.cd_id },
+    {
+       $push: {"lessions": lession._id}
+    }).exec(function(err, result) {
+      if (err) return next(err);
+      res.json(lession);
+    })
   });
+
 }
 
 exports.getLessions = function(req, res, next) {
@@ -61,6 +69,12 @@ exports.deleteLessions = function(req, res, next) {
   Lession.remove({_id: id})
     .exec(function(err, result){
     if (err) return next(err);
-    res.json(result);
+    CD.update({ _id: req.params.cd_id },
+    {
+       $pull: {"lessions": id}
+    }).exec(function(err, cd) {
+      if (err) return next(err);
+      res.json(result);
+    })
   });
 }

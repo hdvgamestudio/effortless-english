@@ -1,20 +1,20 @@
 <!-- SECTION VIEW -->
 <h4><strong>Section List (CD: {{cd.title}}, Lession: {{lession.title}})</strong></h4>
+<p class="text-right"><strong>Total: {{sections.record_total}}</strong></p>
 <table class="table table-hover">
   <tr>
-    <th><span>Title</span></th>
-    <th><span>Created Date</span></th>
-    <th><span>Type</span></th>
-    <th><span>URL</span></th>
-    <th><span></span></th>
+    <th class="col-md-2"><span>Title</span></th>
+    <th class="col-md-2"><span>Created Date</span></th>
+    <th class="col-md-2"><span>Type</span></th>
+    <th class="col-md-4"><span>URL</span></th>
+    <th class="col-md-2"><span></span></th>
   </tr>
   <tr ng-repeat="section in sections.sections">
-    <td><span>{{section.title}}</span></td>
-    <td><span>{{section.created_at}}</span></td>
-    <td><span>{{section.section_type}}</span></td>
-    <td><span>{{section.url}}</span></td>
-    <td>
-      <a href="cds/{{cdId}}/sections/{{section._id/sections}}"><span class="glyphicon glyphicon-list-alt"></span></a>
+    <td class="col-md-2"><span>{{section.title}}</span></td>
+    <td class="col-md-2"><span>{{section.created_at}}</span></td>
+    <td class="col-md-2"><span>{{section.section_type}}</span></td>
+    <td class="col-md-4"><span>{{section.url}}</span></td>
+    <td class="col-md-2">
       <a href="#" ng-click="switchToUpdate(section)"><span class="glyphicon glyphicon-edit"></span></a>
       <a href="#" confirmed-click="deleteSections(section._id)" ng-confirm-click="Do you really want to delete the section?"><span class="glyphicon glyphicon-trash"></span></a>
     </td>
@@ -27,7 +27,7 @@
     <strong>Success!</strong> The section have been modified successfully.
 </div>
 <h4><strong>{{isCreating ? 'Create Section' : 'Update Section'}}</strong></h4>
-<form class="form-horizontal" role="form">
+<form id="section" class="form-horizontal" role="form">
   <div class="form-group">
     <label class="control-label col-sm-2">Title: </label>
     <div class="col-sm-3">
@@ -38,7 +38,7 @@
     <label class="control-label col-sm-2">Section Type: </label>
     <div class="col-sm-3">
       <select class="form-control" ng-model="section.section_type">
-        <option value="" selected="selected">select a type</option>
+        <option value="" selected="selected">Select a type</option>
         <option value="main">main</option>
         <option value="ministory">ministory</option>
         <option value="vocabulary">vocabulary</option>
@@ -48,28 +48,31 @@
   <div class="form-group">
     <label class="control-label col-sm-2">Video URL: </label>
     <div class="col-sm-8">
-      <input class="form-control" ng-model="section.url" placeholder="Enter Title">
+      <input class="form-control" ng-model="section.url" placeholder="Video URL">
     </div>
   </div>
   <div class="form-group">
     <label class="control-label col-sm-2">Content: </label>
-<div class="row screen-split" style="clear: both;" ng-controller="markdownController as marked">
+  </div>
+  <div class="row screen-split">
     <div class="col-sm-6 col-md-6">
       <h5>Markdown</h5>
       <div>
-        <textarea id="inputText" ng-model="marked.inputText"></textarea>
+        <textarea id="inputText" ng-model="section.content"></textarea>
       </div>
     </div>
     <div class="col-sm-6 col-md-6">
       <h5>Preview</h5>
-      <div id="outputText" ng-bind-html="marked.outputText"></div>
+      <div id="outputText" ng-bind-html="outputText"></div>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-1 col-sm-10" ng-if="isCreating">
-        <button type="submit" class="btn btn-primary" ng-click="createSections()">Create Lession</button>
+        <button type="submit" class="btn btn-primary" ng-click="createSections()">Create Section</button>
     </div>
-  </div>  </div>
-  
+    <div class="col-sm-offset-1 col-sm-10" ng-if="!isCreating">
+        <button type="submit" class="btn btn-primary" ng-click="editSections()">Update Section</button>
+    </div>
+  </div>
 </form>
 

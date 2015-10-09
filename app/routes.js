@@ -1,8 +1,11 @@
 var express = require('express');
+var config = require('../config/config')
 var Error404 = require('../lib/errors/error404');
 var cdController = require('./controllers/cd');
 var lessionController = require('./controllers/lession');
 var sectionController = require('./controllers/section');
+var authController = require('./controllers/auth');
+var authenticate = require('../lib/jwtAuth').authenticate;
 
 module.exports = function(app) {
   var router = express.Router();
@@ -11,9 +14,16 @@ module.exports = function(app) {
     .get(function(req, res, next) {
       res.sendFile('../public/views/home.html');
   });
+
+  /*-- Authenticate --*/
+  router.route('/login')
+    .post(authController.login)
+  router.route('/logout')
+    .get(authController.logout)
+
   /*-- CD --*/
   router.route('/cds')
-    .post(cdController.postCDs)
+    .post(authenticate, cdController.postCDs)
     .get(cdController.getCDs)
   router.route('/cds/:id')
     .get(cdController.showCDs)
