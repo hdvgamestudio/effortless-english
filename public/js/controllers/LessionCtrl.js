@@ -1,5 +1,5 @@
-angular.module('LessionCtrl', []).controller('LessionController', function($scope, $http, $routeParams) {
-  var apiUrl = 'http://localhost:3000/api/v1/cds/' + $routeParams.cd_id;
+angular.module('LessionCtrl', []).controller('LessionController', function($scope, $http, $routeParams, api) {
+  var apiUrl = api.base_url + '/cds/' + $routeParams.cd_id;
   var GET_URL = CREATE_URL = apiUrl + '/lessions';
   // Get the cd of the lessions
   getCD();

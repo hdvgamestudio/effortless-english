@@ -4,6 +4,7 @@ angular.module('AuthCtrl', ['UserSer', 'AuthSer']).controller('AuthController',[
     if (username !== undefined && password !== undefined) {
       UserService.logIn(username, password).success(function(data) {
         AuthenticationService.isAuthenticated = true;
+        AuthenticationService.currentUser = {username: "Admin"}
         $window.sessionStorage.token = data.token;
         $location.path('/cds');
       }).error(function(status, data) {

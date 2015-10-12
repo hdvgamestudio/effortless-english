@@ -1,5 +1,5 @@
-angular.module('CDCtrl', []).controller('CDController',function($scope, $http) {
-  var apiUrl = 'http://localhost:3000/api/v1/'
+angular.module('CDCtrl', []).controller('CDController',function($scope, $http, api) {
+  var apiUrl = api.base_url + '/';
   var GET_URL = CREATE_URL = apiUrl + 'cds';
   $scope.cd = {};
   $scope.isCreating = true;
