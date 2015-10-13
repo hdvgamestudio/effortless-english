@@ -34,16 +34,3 @@ UserSchema.methods.comparePassword = function(password, cb) {
 };
 
 module.exports = mongoose.model('User', UserSchema);
-/*
-var User = module.exports;
-var user = new User({
-  username: 'admin',
-  password: '@Cafef911$'
-})
-
-console.log('saving..........');
-user.save(function(err, data) {
-  if (err) console.log("err");
-  else console.log(JSON.stringify(data));
-})
-*/
