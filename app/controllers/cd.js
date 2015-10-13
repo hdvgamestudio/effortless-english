@@ -12,6 +12,7 @@ exports.postCDs = function(req, res, next) {
 }
 
 exports.getCDs = function(req, res, next) {
+  var fields;
   var criteria = {};
   var sort = {};
   if (req.query.q) {
@@ -20,11 +21,15 @@ exports.getCDs = function(req, res, next) {
       { title: expr }
     ];
   }
+  if (req.query.fields) {
+    fields = req.query.fields.replace(/,/g, ' ');
+  }
+
   if (req.query.title) {
     criteria.title = req.query.title;
   }
-  CD.find(criteria)
-    .populate('lessions')
+  CD.find(criteria, fields)
+    .populate('lessions', 'title')
     .exec(function(err, cds) {
     if (err) return next(err);
     res.json({cds: cds, record_total: cds.length});

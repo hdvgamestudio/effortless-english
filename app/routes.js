@@ -27,26 +27,26 @@ module.exports = function(app) {
     .get(cdController.getCDs)
   router.route('/cds/:id')
     .get(cdController.showCDs)
-    .put(cdController.editCDs)
-    .delete(cdController.deleteCDs)
+    .put(authenticate, cdController.editCDs)
+    .delete(authenticate, cdController.deleteCDs)
 
   /*-- Lession --*/
   router.route('/cds/:cd_id/lessions')
-    .post(lessionController.postLessions)
+    .post(authenticate, lessionController.postLessions)
     .get(lessionController.getLessions)
   router.route('/cds/:cd_id/lessions/:lession_id')
     .get(lessionController.showLessions)
-    .put(lessionController.editLessions)
-    .delete(lessionController.deleteLessions)
+    .put(authenticate, lessionController.editLessions)
+    .delete(authenticate, lessionController.deleteLessions)
 
   /*-- Section --*/
   router.route('/cds/:cd_id/lessions/:lession_id/sections')
     .get(sectionController.getSections)
-    .post(sectionController.postSections)
+    .post(authenticate, sectionController.postSections)
   router.route('/cds/:cd_id/lessions/:lession_id/sections/:section_id')
     .get(sectionController.showSections)
-    .put(sectionController.editSections)
-    .delete(sectionController.deleteSections)
+    .put(authenticate, sectionController.editSections)
+    .delete(authenticate, sectionController.deleteSections)
 
   // Register all routes
   app.use('/api/v1', router);
