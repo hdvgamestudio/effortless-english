@@ -1,6 +1,7 @@
 angular.module('LessionCtrl', []).controller('LessionController', function($scope, $http, $routeParams, api) {
   var apiUrl = api.base_url + '/cds/' + $routeParams.cd_id;
   var GET_URL = CREATE_URL = apiUrl + '/lessions';
+  $scope.lessionTitle = '';
   // Get the cd of the lessions
   getCD();
   $scope.lession = {};
@@ -28,6 +29,8 @@ angular.module('LessionCtrl', []).controller('LessionController', function($scop
         }
       })
     }).success(function(data, status, headers, config) {
+      $scope.lessionTitle = $scope.lession.title;
+      $scope.lession.title = '';
       $scope.isCreatedSuccess = true;
       $scope.isEditedSuccess = false;
       $scope.getLessions();
@@ -47,6 +50,7 @@ angular.module('LessionCtrl', []).controller('LessionController', function($scop
         }
       })
     }).success(function(data, status) {
+      $scope.lessionTitle = $scope.lession.title;
       $scope.lession.title = '';
       $scope.isEditedSuccess = true;
       $scope.isCreating = true;

@@ -9,21 +9,20 @@
     <th><span></span></th>
   </tr>
   <tr ng-repeat="lession in lessions.lessions">
-    <td><span>{{lession.title}}</span></td>
+    <td><a href="cds/{{cd._id}}/lessions/{{lession._id}}/sections">{{lession.title}}</a></td>
     <td><span>{{lession.created_at}}</span></td>
     <td><span>{{lession.sections.length ? lession.sections.length : 0}}</span></td>
     <td>
-      <a href="cds/{{cd._id}}/lessions/{{lession._id}}/sections"><span class="glyphicon glyphicon-list-alt"></span></a>
       <a href="#" ng-click="switchToUpdate(lession)"><span class="glyphicon glyphicon-edit"></span></a>
       <a href="#" confirmed-click="deleteLessions(lession._id)" ng-confirm-click="Do you really want to delete the lession?"><span class="glyphicon glyphicon-trash"></span></a>
     </td>
   </tr>
 </table>
 <div class="alert alert-success" ng-show="isCreatedSuccess">
-    <strong>Success!</strong> The new lession have been created successfully.
+  <strong>Success!</strong> The new lession <strong>'{{lessionTitle}}'</strong> have been created successfully.
 </div>
 <div class="alert alert-success" ng-show="isEditedSuccess">
-    <strong>Success!</strong> The new lession have been modified successfully.
+  <strong>Success!</strong> The new lession <strong>'{{lessionTitle}}'</strong> have been modified successfully.
 </div>
 <h4><strong>{{isCreating ? 'Create Lession' : 'Update Lession'}}</strong></h4>
 <form class="form-horizontal" role="form">

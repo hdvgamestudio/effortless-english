@@ -2,6 +2,7 @@ angular.module('CDCtrl', []).controller('CDController',function($scope, $http, a
   var apiUrl = api.base_url + '/';
   var GET_URL = CREATE_URL = apiUrl + 'cds';
   $scope.cd = {};
+  $scope.cdTitle = '';
   $scope.isCreating = true;
   // Get CD List
   $scope.getCDs = function() {
@@ -24,6 +25,8 @@ angular.module('CDCtrl', []).controller('CDController',function($scope, $http, a
     }).success(function(data, status, headers, config) {
       $scope.isCreatedSuccess = true;
       $scope.isEditedSuccess = false;
+      $scope.cdTitle = $scope.cd.title;
+      $scope.cd.title = '';
       $scope.getCDs();
     }).error(function() {
         console.log('error create a cd');
@@ -37,6 +40,7 @@ angular.module('CDCtrl', []).controller('CDController',function($scope, $http, a
       method: "PUT",
       data: JSON.stringify({cd: {title: $scope.cd.title}})
     }).success(function(data, status) {
+      $scope.cdTitle = $scope.cd.title;
       $scope.cd.title = '';
       $scope.isEditedSuccess = true;
       $scope.isCreating = true;
