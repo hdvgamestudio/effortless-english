@@ -4,22 +4,25 @@ var Error404 = require('../lib/errors/error404');
 var cdController = require('./controllers/cd');
 var lessionController = require('./controllers/lession');
 var sectionController = require('./controllers/section');
+var helpController = require('./controllers/help');
 var authController = require('./controllers/auth');
 var authenticate = require('../lib/jwtAuth').authenticate;
 
 module.exports = function(app) {
   var router = express.Router();
 
-  router.route('/test')
-    .get(function(req, res, next) {
-      res.sendFile('../public/views/home.html');
-  });
-
   /*-- Authenticate --*/
   router.route('/login')
     .post(authController.login)
-  router.route('/logout')
-    .get(authController.logout)
+
+  /*-- Help --*/
+  router.route('/helps')
+    .post(authenticate, helpController.postHelps)
+    .get(helpController.getHelps)
+  router.route('/helps/:id')
+    .get(helpController.showHelps)
+    .put(authenticate, helpController.editHelps)
+    .delete(authenticate, helpController.deleteHelps)
 
   /*-- CD --*/
   router.route('/cds')

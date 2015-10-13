@@ -4,6 +4,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
     .when('/', {
       templateUrl: 'views/login.html',
     })
+    .when('/help', {
+      templateUrl: 'views/help.html',
+      controller: 'HelpController',
+    })
     .when('/cds', {
       templateUrl: 'views/cd.html',
       controller: 'CDController',

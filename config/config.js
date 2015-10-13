@@ -20,7 +20,8 @@ var defaults = {
  * */
 
 module.exports = {
-  production: extend(defaults, production),
-  development: extend(defaults, development),
-  test: extend(defaults, test)
+  development: extend(development, defaults),
+  test: extend(test, defaults),
+  production: extend(production, defaults)
 }[process.env.NODE_ENV || 'development'];
+

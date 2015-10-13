@@ -11,6 +11,7 @@
 
     <!-- JS -->
     <script type="text/javascript" src="libs/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="libs/angular/angular.min.js"></script>
     <script type="text/javascript" src="libs/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script type="text/javascript" src="libs/angular-route/angular-route.min.js"></script>
@@ -23,17 +24,36 @@
     <script type="text/javascript" src="js/controllers/CDCtrl.js"></script>
     <script type="text/javascript" src="js/controllers/LessionCtrl.js"></script>
     <script type="text/javascript" src="js/controllers/SectionCtrl.js"></script>
+    <script type="text/javascript" src="js/controllers/HelpCtrl.js"></script>
     <script type="text/javascript" src="js/controllers/AuthCtrl.js"></script>
     <script type="text/javascript" src="js/services/userService.js"></script>
     <script type="text/javascript" src="js/services/authService.js"></script>
     <script type="text/javascript" src="js/services/tokenService.js"></script>
+    <script type="text/javascript">
+      $( document ).ready(function() {
+        $(".nav a").on("click", function(){
+           $(".nav").find(".active").removeClass("active");
+           $(this).parent().addClass("active");
+        });
+      });
+    </script>
 </head>
-<body>
-<header>
-<div class="text-center">
-  <h2>Effortless English CMS</h2>
-</div>
-</header>
+<body ng-controller="AuthController">
+<nav class="navbar navbar-default navbar-fixed-top" ng-show="isLoggined">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Effortless English</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/cds">Home</a></li>
+        <li><a href="/help">Help</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" ng-click="logOut()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+    </div>
+  </div>
+</nav>
 <section>
   <!-- ANGULAR DYNAMIC CONTENT -->
   <div class="container">

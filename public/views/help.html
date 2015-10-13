@@ -1,0 +1,66 @@
+<!-- SECTION VIEW -->
+<h4><strong>Help List</strong></h4>
+<p class="text-right"><strong>Total: {{helps.record_total}}</strong></p>
+<table class="table table-hover">
+  <tr>
+    <th class="col-md-2"><span>Title</span></th>
+    <th class="col-md-2"><span>Created Date</span></th>
+    <th class="col-md-2"><span>Language</span></th>
+    <th class="col-md-2"><span></span></th>
+  </tr>
+  <tr ng-repeat="help in helps.helps">
+    <td class="col-md-2"><span>{{help.title}}</span></td>
+    <td class="col-md-2"><span>{{help.created_at}}</span></td>
+    <td class="col-md-2"><span>{{help.language}}</span></td>
+    <td class="col-md-2">
+      <a href="#" ng-click="switchToUpdate(help)"><span class="glyphicon glyphicon-edit"></span></a>
+      <a href="#" confirmed-click="deleteHelps(help._id)" ng-confirm-click="Do you really want to delete the help?"><span class="glyphicon glyphicon-trash"></span></a>
+    </td>
+  </tr>
+</table>
+<div class="alert alert-success" ng-show="isCreatedSuccess">
+    <strong>Success!</strong> The new help have been created successfully.
+</div>
+<div class="alert alert-success" ng-show="isEditedSuccess">
+    <strong>Success!</strong> The help have been modified successfully.
+</div>
+<h4><strong>{{isCreating ? 'Create Help' : 'Update Help'}}</strong></h4>
+<form id="help" class="form-horizontal" role="form">
+  <div class="form-group">
+    <label class="control-label col-sm-2">Title: </label>
+    <div class="col-sm-3">
+      <input class="form-control" ng-model="help.title" placeholder="Enter Title">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">Language: </label>
+    <div class="col-sm-3">
+      <input class="form-control" ng-model="help.language" placeholder="Enter Language">
+    </div>
+  </div>
+  <div class="form-group">
+  <div class="form-group">
+    <label class="control-label col-sm-2">Content: </label>
+  </div>
+  <div class="row screen-split">
+    <div class="col-sm-6 col-md-6">
+      <h5>Markdown</h5>
+      <div>
+        <textarea id="inputText" ng-model="help.content"></textarea>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-6">
+      <h5>Preview</h5>
+      <div id="outputText" ng-bind-html="outputText"></div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-10" ng-if="isCreating">
+        <button type="submit" class="btn btn-primary" ng-click="createHelps()">Create Help</button>
+    </div>
+    <div class="col-sm-offset-1 col-sm-10" ng-if="!isCreating">
+        <button type="submit" class="btn btn-primary" ng-click="editHelps()">Update Help</button>
+    </div>
+  </div>
+</form>
+
