@@ -4,7 +4,7 @@
  */
 
 module.exports = {
-  db: 'mongodb://localhost:27017/effortless_english',
+  db: process.env.OPENSHIFT_NODEJS_IP ? 'mongodb://$OPENSHIFT_MONGODB_DB_HOST:$OPENSHIFT_MONGODB_DB_PORT/effortless_english' : 'mongodb://localhost:27017/effortless_english',
   facebook: {
     clientID: 'APP_ID',
     clientSecret: 'SECRET',

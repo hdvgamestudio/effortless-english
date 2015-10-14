@@ -6,8 +6,8 @@ var errorHandler = require('./lib/errors/errorHandler');
 var config = require('./config/config');
 
 var app = express();
-var port = process.env.PORT || 3000;
-
+var ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
+var port = process.env.OPENSHIFT_NODEJS_PORT  || 3000;
 // Connect to mongodb
 var connect = function () {
   var options = { server: { socketOptions: { keepAlive: 1 } } };
@@ -35,5 +35,5 @@ require('./app/routes')(app);
 // Set error handler for whole app
 errorHandler(app);
 
-app.listen(port);
+app.listen(port, ipaddress);
 console.log('Express app started on port ' + port);
